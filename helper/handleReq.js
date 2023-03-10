@@ -14,7 +14,6 @@ module.exports = {
       dirName.slice(0, dirName.length - 1).join("/") +
       "/data" +
       parseUrl.pathname;
-
     const requestProperties = {
       host,
       parseUrl,
@@ -24,7 +23,7 @@ module.exports = {
     if (method === "GET") {
       fs.stat(requestProperties.dirName, (err, stats) => {
         if (err) {
-          errHandler(500, "Internal server error.", res);
+          errHandler(requestProperties, 500, "Internal server error.", res);
         } else {
           if (stats.isFile()) {
             fileReadHandler(requestProperties, res);
@@ -34,7 +33,7 @@ module.exports = {
         }
       });
     } else {
-      errHandler(400, method + " method is not supported.", res);
+      errHandler(requestProperties, 400, method + " method is not supported.", res);
     }
   },
 };
