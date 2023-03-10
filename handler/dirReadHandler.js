@@ -1,5 +1,6 @@
 const { errHandler } = require("./errHandler");
 const { fileListHandler } = require("./fileListHandler");
+const { logHandler } = require("./logHandler");
 const fs = require("fs");
 
 module.exports = {

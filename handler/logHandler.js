@@ -1,7 +1,8 @@
+const fs = require("fs");
 module.exports = {
   logHandler: (requestProperties, statusCode, msg) => {
-    let time = new Date().toDateString();
-    let logMessage =
+    const time = new Date().toDateString();
+    const logMessage =
       time +
       "\t\t" +
       requestProperties.method +
@@ -10,8 +11,10 @@ module.exports = {
       "\t\t" +
       requestProperties.parseUrl.pathname +
       "\t\t" +
-      msg;
-    ("\n");
-    fs.appendFile("log.txt", logMessage);
+      msg +
+      "\n";
+    fs.appendFile("log.txt", logMessage, (err) => {
+      if (err) errHandler(requestProperties, 500, "Internal Server Error");
+    });
   },
 };
